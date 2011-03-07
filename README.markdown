@@ -1,12 +1,13 @@
 # Rack::MatrixParams
 
-Just simple Rack middleware to enable 'matrix' params for POST requests
-
+Just simple Rack middleware to enable 'matrix' params
 
 ## FEATURES:
 
-- Allow you to use URL's like "/test/test;person_id=12345;kitty_name=Hello Kitty" where
-  person_id and kitty_name will be passed as regular POST params
+- Allow you to use URL's like 
+  - http://localhost:9393/library;category=biology/book;author=Bond;hardcover=yes
+  - http://localhost:9393/library/book;author=Bond;hardcover=yes
+  - http://localhost:9393/library;category=biology/book?id=123
 
 ## EXAMPLES:
 
@@ -15,6 +16,19 @@ Just simple Rack middleware to enable 'matrix' params for POST requests
     gem install sinatra
     ruby example_server.rb
     (browse http://localhost:4567/
+
+### Example return values
+
+- http://localhost:9393/library;category=biology/book;author=Bond;hardcover=yes
+
+    params['library']['category']='biology'
+    params['book']['author']='Bond'
+    params['book']['hardcover']='yes'
+
+- http://localhost:9393/library;category=biology/book?id=123
+
+    params['library']['category']='biology'
+    params['id']=123
 
 ## LICENSE
 
@@ -34,6 +48,3 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
 License for the specific language governing permissions and limitations
 under the License.
-
-FIXME: This should be moved into lib/ and be called Deltacloud::Drivers
-or some such
